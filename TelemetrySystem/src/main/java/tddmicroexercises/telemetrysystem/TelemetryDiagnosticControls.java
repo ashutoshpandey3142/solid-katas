@@ -1,18 +1,10 @@
 package tddmicroexercises.telemetrysystem;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tddmicroexercises.telemetrysystem.solution.IReciever;
 import tddmicroexercises.telemetrysystem.solution.ISender;
 import tddmicroexercises.telemetrysystem.solution.IStatus;
-import tddmicroexercises.telemetrysystem.solution.implementation.Connection;
 import tddmicroexercises.telemetrysystem.solution.IConnection;
-import tddmicroexercises.telemetrysystem.solution.implementation.Reciver;
-import tddmicroexercises.telemetrysystem.solution.implementation.Sender;
-import tddmicroexercises.telemetrysystem.solution.implementation.Status;
-
-@SpringBootApplication
 public class TelemetryDiagnosticControls
 {
     public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
@@ -24,7 +16,7 @@ public class TelemetryDiagnosticControls
     private String diagnosticInfo = "";
 
         @Autowired
-        public TelemetryDiagnosticControls(Sender sender,Reciver reciver, Connection connection, Status status)
+        public TelemetryDiagnosticControls(ISender sender,IReciever reciver, IConnection connection, IStatus status)
         {
             this.sender = sender;
             this.reciver = reciver;
@@ -60,8 +52,5 @@ public class TelemetryDiagnosticControls
 
             sender.send(DIAGNOSTIC_MESSAGE);
             diagnosticInfo = reciver.receive();
-    }
-    public static void main(String[] args) {
-        SpringApplication.run(TelemetryDiagnosticControls.class, args);
     }
 }
